@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainWindow {
 
@@ -57,7 +59,14 @@ public class MainWindow {
 		JPanel pnlZaAlate = new JPanel();
 		frmKaoPaint.getContentPane().add(pnlZaAlate, BorderLayout.WEST);
 		
-		JPanel pnlZaCrtanje = new JPanel();
+		PanelZaCrtanje pnlZaCrtanje = new PanelZaCrtanje();
+		pnlZaCrtanje.addMouseListener(new MouseAdapter() 
+		{
+			@Override
+			public void mouseClicked(MouseEvent arg0) 
+			{
+			}
+		});
 		pnlZaCrtanje.setBorder(new LineBorder(new Color(0, 0, 0)));
 		frmKaoPaint.getContentPane().add(pnlZaCrtanje, BorderLayout.CENTER);
 	}

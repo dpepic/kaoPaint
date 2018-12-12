@@ -1,11 +1,13 @@
 package geometrija;
 
+import java.awt.Point;
+
 public class Krug 
 {
-	Tacka centar;
+	Point centar;
 	Duz precnik;
 
-	public Krug(Tacka c, Duz p)
+	public Krug(Point c, Duz p)
 	{
 		this.centar = c;
 		this.precnik = p;

@@ -1,11 +1,23 @@
 package geometrija;
 
+import java.awt.Point;
+
 public class Duz
 {
-	Tacka a;
-	Tacka b;
+	Point a;
+	Point b;
 	
-	public Duz(Tacka prva, Tacka druga)
+	public Point vratiTackuA()
+	{
+		return this.a;
+	}
+	
+	public Point vratiTackuB()
+	{
+		return this.b;
+	}
+	
+	public Duz(Point prva, Point druga)
 	{
 		this.a = prva;
 		this.b = druga;
