@@ -1,9 +1,11 @@
 package geometrija;
 
 import java.awt.Point;
+import java.io.Serializable;
 
-public class Duz
+public class Duz implements Serializable
 {
+	private static final long serialVersionUID = 3721287024211121848L;
 	Point a;
 	Point b;
 	

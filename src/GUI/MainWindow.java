@@ -19,6 +19,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import javax.swing.BoxLayout;
 
 public class MainWindow {
 
@@ -85,13 +92,51 @@ public class MainWindow {
 		{
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				Duz nekaLinija = new Duz(new Point(10,10), new Point(150,150));
-				pnlZaCrtanje.duzi.add(nekaLinija);
-				nekaLinija = new Duz(new Point(50, 100), new Point(42, 38));
-				pnlZaCrtanje.duzi.add(nekaLinija);
-				pnlZaCrtanje.repaint();
+				try 
+				{
+					FileOutputStream fajl = new FileOutputStream("test.obj");
+					ObjectOutputStream oOut = new ObjectOutputStream(fajl);
+					for (Duz linija: pnlZaCrtanje.duzi)
+					{
+						oOut.writeObject(linija);
+					}
+					oOut.close();
+					fajl.close();
+					pnlZaCrtanje.duzi.clear();
+					pnlZaCrtanje.repaint();
+				} catch (IOException e) 
+				{
+					
+					e.printStackTrace();
+				}
 			}
 		});
+		pnlZaAlate.setLayout(new BoxLayout(pnlZaAlate, BoxLayout.Y_AXIS));
+		
+		JButton btnLoad = new JButton("Ucitaj");
+		btnLoad.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				try 
+				{
+					FileInputStream inFajl = new FileInputStream("test.obj");
+					ObjectInputStream inObj = new ObjectInputStream(inFajl);
+					
+					while (true)
+					{
+						Duz nova = (Duz) inObj.readObject();
+						pnlZaCrtanje.duzi.add(nova);
+					}
+					
+				} catch (IOException | ClassNotFoundException e) 
+				{
+					pnlZaCrtanje.repaint();
+				}
+				
+			}
+		});
+		pnlZaAlate.add(btnLoad);
 		pnlZaAlate.add(btnTest);
 	}
 
