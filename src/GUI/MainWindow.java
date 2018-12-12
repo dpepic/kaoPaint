@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.EventQueue;
+import java.awt.Point;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -9,9 +10,15 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
+
+import geometrija.Duz;
+
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseMotionAdapter;
 
 public class MainWindow {
 
@@ -20,17 +27,10 @@ public class MainWindow {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainWindow window = new MainWindow();
-					window.frmKaoPaint.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public static void main(String[] args)
+	{
+		MainWindow window = new MainWindow();
+		window.frmKaoPaint.setVisible(true);
 	}
 
 	/**
@@ -59,16 +59,40 @@ public class MainWindow {
 		JPanel pnlZaAlate = new JPanel();
 		frmKaoPaint.getContentPane().add(pnlZaAlate, BorderLayout.WEST);
 		
+
+		
 		PanelZaCrtanje pnlZaCrtanje = new PanelZaCrtanje();
+		pnlZaCrtanje.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent arg0) 
+			{
+				pnlZaCrtanje.iscrtavanje(arg0.getX(), arg0.getY());
+			}
+		});
 		pnlZaCrtanje.addMouseListener(new MouseAdapter() 
 		{
 			@Override
 			public void mouseClicked(MouseEvent arg0) 
 			{
+				lblStatus.setText(pnlZaCrtanje.crtajDuz(arg0.getX(), arg0.getY()));
 			}
 		});
 		pnlZaCrtanje.setBorder(new LineBorder(new Color(0, 0, 0)));
 		frmKaoPaint.getContentPane().add(pnlZaCrtanje, BorderLayout.CENTER);
+		
+		JButton btnTest = new JButton("Proba");
+		btnTest.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				Duz nekaLinija = new Duz(new Point(10,10), new Point(150,150));
+				pnlZaCrtanje.duzi.add(nekaLinija);
+				nekaLinija = new Duz(new Point(50, 100), new Point(42, 38));
+				pnlZaCrtanje.duzi.add(nekaLinija);
+				pnlZaCrtanje.repaint();
+			}
+		});
+		pnlZaAlate.add(btnTest);
 	}
 
 }
