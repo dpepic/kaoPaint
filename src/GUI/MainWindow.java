@@ -72,7 +72,7 @@ public class MainWindow {
 		pnlZaCrtanje.addMouseListener(new MouseAdapter() 
 		{
 			@Override
-			public void mouseClicked(MouseEvent arg0) 
+			public void mousePressed(MouseEvent arg0) 
 			{
 				lblStatus.setText(pnlZaCrtanje.crtajDuz(arg0.getX(), arg0.getY()));
 			}
