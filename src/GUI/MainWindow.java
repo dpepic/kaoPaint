@@ -74,6 +74,13 @@ public class MainWindow {
 			@Override
 			public void mouseMoved(MouseEvent arg0) 
 			{
+				if (tglbtnCrtajKrug.isSelected())
+				{
+					pnlZaCrtanje.crtamoLiniju = false;
+				} else
+				{
+					pnlZaCrtanje.crtamoLiniju = true;
+				}
 				pnlZaCrtanje.iscrtavanje(arg0.getX(), arg0.getY());
 			}
 		});
