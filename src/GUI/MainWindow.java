@@ -85,6 +85,9 @@ public class MainWindow {
 				if (tglbtnCrtajDuz.isSelected())
 				{
 					lblStatus.setText(pnlZaCrtanje.crtajDuz(arg0.getX(), arg0.getY()));
+				} else 
+				{
+					lblStatus.setText(pnlZaCrtanje.crtajKrug(arg0.getX(), arg0.getY()));
 				}
 			}
 		});

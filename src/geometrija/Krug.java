@@ -6,6 +6,16 @@ public class Krug
 {
 	Point centar;
 	Duz precnik;
+	
+	public Point getCentar()
+	{
+		return this.centar;
+	}
+	
+	public Duz getPrecnik()
+	{
+		return this.precnik;
+	}
 
 	public Krug(Point c, Duz p)
 	{
