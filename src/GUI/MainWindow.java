@@ -1,6 +1,4 @@
 package GUI;
-//Pravimo commit
-//Jos neke izmene
 import java.awt.EventQueue;
 import java.awt.Point;
 
@@ -20,6 +18,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseMotionAdapter;
+import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
+import javax.swing.JToggleButton;
 
 public class MainWindow {
 
@@ -61,6 +62,12 @@ public class MainWindow {
 		frmKaoPaint.getContentPane().add(pnlZaAlate, BorderLayout.WEST);
 		
 
+		JToggleButton tglbtnCrtajDuz = new JToggleButton("Crtanje duzi");
+		tglbtnCrtajDuz.setSelected(true);
+		pnlZaAlate.add(tglbtnCrtajDuz);
+		
+		JToggleButton tglbtnCrtajKrug = new JToggleButton("Crtanje kruga");
+		pnlZaAlate.add(tglbtnCrtajKrug);
 		
 		PanelZaCrtanje pnlZaCrtanje = new PanelZaCrtanje();
 		pnlZaCrtanje.addMouseMotionListener(new MouseMotionAdapter() {
@@ -75,7 +82,10 @@ public class MainWindow {
 			@Override
 			public void mousePressed(MouseEvent arg0) 
 			{
-				lblStatus.setText(pnlZaCrtanje.crtajDuz(arg0.getX(), arg0.getY()));
+				if (tglbtnCrtajDuz.isSelected())
+				{
+					lblStatus.setText(pnlZaCrtanje.crtajDuz(arg0.getX(), arg0.getY()));
+				}
 			}
 		});
 		pnlZaCrtanje.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -93,7 +103,15 @@ public class MainWindow {
 				pnlZaCrtanje.repaint();
 			}
 		});
+		pnlZaAlate.setLayout(new BoxLayout(pnlZaAlate, BoxLayout.Y_AXIS));
 		pnlZaAlate.add(btnTest);
+		
+
+		
+		ButtonGroup grupaZaCrtanje = new ButtonGroup();
+		grupaZaCrtanje.add(tglbtnCrtajDuz);
+		grupaZaCrtanje.add(tglbtnCrtajKrug);
+		
 	}
 
 }
