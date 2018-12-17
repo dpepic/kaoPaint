@@ -26,7 +26,25 @@ public class PanelZaCrtanje extends JPanel
 				linijaZaIscrtavanje = new Duz(pocetnaTacka, new Point(x, y));
 			} else
 			{
-				krugZaIscrtavanje = new Krug(pocetnaTacka, new Duz(pocetnaTacka, new Point(x, y)));
+				Point centar = new Point();
+				
+				if (pocetnaTacka.x < x)
+				{
+					centar.x = pocetnaTacka.x;
+				} else
+				{
+					centar.x = x;
+				}
+				
+				if (pocetnaTacka.y < y)
+				{
+					centar.y = pocetnaTacka.y;
+				} else
+				{
+					centar.y = y;
+				}
+					
+				krugZaIscrtavanje = new Krug(centar, new Duz(pocetnaTacka, new Point(x, y)));	
 			}
 			this.repaint();
 		}
@@ -37,13 +55,25 @@ public class PanelZaCrtanje extends JPanel
 		if (crtanjeUtoku)
 		{
 			Duz linija = new Duz(pocetnaTacka, new Point(x, y));
-			//int sirina = (int) Math.abs(pocetnaTacka.getX() - x);
-			//int visina = (int) Math.abs(pocetnaTacka.getY() - y);
-			//int centarX = (int) (pocetnaTacka.getX() - 200/2);
-			//int centarY = (int) (pocetnaTacka.getY() - 200/2);
 
-
-			Krug nekiKrug = new Krug(pocetnaTacka, linija);
+			Point centar = new Point();
+			if (pocetnaTacka.x < x)
+			{
+				centar.x = pocetnaTacka.x;
+			} else
+			{
+				centar.x = x;
+			}
+			
+			if (pocetnaTacka.y < y)
+			{
+				centar.y = pocetnaTacka.y;
+			} else
+			{
+				centar.y = y;
+			}
+			
+			Krug nekiKrug = new Krug(centar, linija);
 			krugovi.add(nekiKrug);
 			crtanjeUtoku = false;
 			this.repaint();
