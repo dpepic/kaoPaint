@@ -67,7 +67,6 @@ public class PanelZaCrtanje extends JPanel
 			
 			if (pocetnaTacka.y < y)
 			{
-				
 				centar.y = pocetnaTacka.y;
 			} else
 			{
