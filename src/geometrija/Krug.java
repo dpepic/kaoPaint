@@ -1,8 +1,9 @@
 package geometrija;
 
+import java.awt.Graphics;
 import java.awt.Point;
 
-public class Krug 
+public class Krug extends Figura
 {
 	Point centar;
 	Duz precnik;
@@ -31,5 +32,11 @@ public class Krug
 	public double obim()
 	{
 		return Math.PI * precnik.vratiDuzinu() * 2;
+	}
+
+	@Override
+	public void iscrtajSe(Graphics povrsinaZaCrtanje) 
+	{
+		povrsinaZaCrtanje.drawOval(this.centar.x, this.centar.y, (int)this.precnik.vratiDuzinu(), (int)this.precnik.vratiDuzinu());	
 	}
 }

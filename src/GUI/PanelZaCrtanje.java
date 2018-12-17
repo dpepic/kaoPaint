@@ -9,8 +9,8 @@ import geometrija.*;
 
 public class PanelZaCrtanje extends JPanel
 {
-	public Vector<Duz> duzi = new Vector<Duz>();
-	public Vector<Krug> krugovi = new  Vector<Krug>();
+	public Vector<Figura> figure = new Vector<Figura>();
+	
 	Duz linijaZaIscrtavanje;
 	Krug krugZaIscrtavanje;
 	Point pocetnaTacka = new Point();
@@ -35,14 +35,14 @@ public class PanelZaCrtanje extends JPanel
 				{
 					centar.x = x;
 				}
-				
-				if (pocetnaTacka.y < y)
-				{
-					centar.y = pocetnaTacka.y;
-				} else
-				{
-					centar.y = y;
-				}
+				centar.y = y;
+				//if (pocetnaTacka.y < y)
+				//{
+				//	centar.y = pocetnaTacka.y;
+				//} else
+				//{
+				//	centar.y = y;
+				//}
 					
 				krugZaIscrtavanje = new Krug(centar, new Duz(pocetnaTacka, new Point(x, y)));	
 			}
@@ -64,17 +64,18 @@ public class PanelZaCrtanje extends JPanel
 			{
 				centar.x = x;
 			}
-			
-			if (pocetnaTacka.y < y)
-			{
-				centar.y = pocetnaTacka.y;
-			} else
-			{
-				centar.y = y;
-			}
+			centar.y = y;
+			//if (pocetnaTacka.y < y)
+			//{
+			//	centar.y = pocetnaTacka.y;
+			//} else
+			//{
+			//	centar.y = y;
+			//}
 			
 			Krug nekiKrug = new Krug(centar, linija);
-			krugovi.add(nekiKrug);
+	
+			figure.add(nekiKrug);
 			crtanjeUtoku = false;
 			this.repaint();
 			return "Kruznica iscrtana!";
@@ -90,7 +91,8 @@ public class PanelZaCrtanje extends JPanel
 		if (crtanjeUtoku)
 		{
 			Duz linija = new Duz(pocetnaTacka, new Point(x, y));
-			duzi.add(linija);
+		
+			figure.add(linija);
 			crtanjeUtoku = false;
 			this.repaint();
 			return "Duz iscrtana";
@@ -108,16 +110,12 @@ public class PanelZaCrtanje extends JPanel
 	{
 		super.paintComponent(g);
 		
-		for (Krug kr: krugovi)
+		for (Figura neka: figure)
 		{
-			//g.drawOval(kr.getCentar().x, kr.getCentar().y, (int)kr.getPrecnik().vratiDuzinu()*2, (int)kr.getPrecnik().vratiDuzinu()*2);
-			g.drawOval(kr.getCentar().x, kr.getCentar().y, (int)kr.getPrecnik().vratiDuzinu(), (int)kr.getPrecnik().vratiDuzinu());
+			neka.iscrtajSe(g);
 		}
-		for (Duz linija: duzi)
-		{
-			g.drawLine(linija.vratiTackuA().x, linija.vratiTackuA().y,
-					   linija.vratiTackuB().x, linija.vratiTackuB().y);
-		}
+		
+		
 		if (crtanjeUtoku)
 		{
 			if (this.crtamoLiniju)

@@ -106,11 +106,7 @@ public class MainWindow {
 		{
 			public void actionPerformed(ActionEvent arg0) 
 			{
-				Duz nekaLinija = new Duz(new Point(10,10), new Point(150,150));
-				pnlZaCrtanje.duzi.add(nekaLinija);
-				nekaLinija = new Duz(new Point(50, 100), new Point(42, 38));
-				pnlZaCrtanje.duzi.add(nekaLinija);
-				pnlZaCrtanje.repaint();
+				
 			}
 		});
 		pnlZaAlate.setLayout(new BoxLayout(pnlZaAlate, BoxLayout.Y_AXIS));

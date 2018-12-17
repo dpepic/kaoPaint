@@ -1,8 +1,9 @@
 package geometrija;
 
+import java.awt.Graphics;
 import java.awt.Point;
 
-public class Duz
+public class Duz extends Figura
 {
 	Point a;
 	Point b;
@@ -26,5 +27,12 @@ public class Duz
 	public double vratiDuzinu()
 	{
 		return Math.sqrt((Math.pow((b.x - a.x), 2) + Math.pow((b.y - a.y), 2)));  
+	}
+
+	@Override
+	public void iscrtajSe(Graphics povrsinaZaCrtanje) 
+	{
+		povrsinaZaCrtanje.drawLine(this.a.x, this.a.y,
+				                   this.b.x, this.b.y);
 	}
 }
