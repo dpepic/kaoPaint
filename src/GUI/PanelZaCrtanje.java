@@ -13,38 +13,61 @@ public class PanelZaCrtanje extends JPanel
 	
 	Duz linijaZaIscrtavanje;
 	Krug krugZaIscrtavanje;
+	Kvadrat kvadZaIscrtavanje;
 	Point pocetnaTacka = new Point();
 	public boolean crtanjeUtoku = false;
-	public boolean crtamoLiniju = true;
+	public String figuraZaIscrtavanje = "duz";
 	
 	public void iscrtavanje(int x, int y)
 	{
 		if (crtanjeUtoku)
 		{
-			if (this.crtamoLiniju)
+			switch (this.figuraZaIscrtavanje)
 			{
-				linijaZaIscrtavanje = new Duz(pocetnaTacka, new Point(x, y));
-			} else
-			{
-				Point centar = new Point();
-				
-				if (pocetnaTacka.x < x)
-				{
-					centar.x = pocetnaTacka.x;
-				} else
-				{
-					centar.x = x;
-				}
-
-				if (pocetnaTacka.y < y)
-				{
-					centar.y = pocetnaTacka.y;
-				} else
-				{
-					centar.y = y;
-				}
+				case "duz":
+					linijaZaIscrtavanje = new Duz(pocetnaTacka, new Point(x, y));
+					break;
+				case "krug":
+					Point centar = new Point();
 					
-				krugZaIscrtavanje = new Krug(centar, new Duz(pocetnaTacka, new Point(x, y)));	
+					if (pocetnaTacka.x < x)
+					{
+						centar.x = pocetnaTacka.x;
+					} else
+					{
+						centar.x = x;
+					}
+
+					if (pocetnaTacka.y < y)
+					{
+						centar.y = pocetnaTacka.y;
+					} else
+					{
+						centar.y = y;
+					}
+						
+					krugZaIscrtavanje = new Krug(centar, new Duz(pocetnaTacka, new Point(x, y)));	
+					break;
+				case "kvadrat":
+					Point levaGornja = new Point();
+					if (pocetnaTacka.x < x)
+					{
+						levaGornja.x = pocetnaTacka.x;
+					} else
+					{
+						levaGornja.x = x;
+					}
+					
+					if (pocetnaTacka.y < y)
+					{
+						levaGornja.y = pocetnaTacka.y;
+					} else
+					{
+						levaGornja.y = y;
+					}
+					
+					this.kvadZaIscrtavanje = new Kvadrat(levaGornja, (int)(new Duz(this.pocetnaTacka, new Point(x, y))).vratiDuzinu());
+					break;
 			}
 			this.repaint();
 		}
@@ -107,7 +130,24 @@ public class PanelZaCrtanje extends JPanel
 	{
 		if (this.crtanjeUtoku)
 		{
-			Kvadrat kvad = new Kvadrat(pocetnaTacka, Math.abs(pocetnaTacka.x - x) );
+			Point levaGornja = new Point();
+			if (pocetnaTacka.x < x)
+			{
+				levaGornja.x = pocetnaTacka.x;
+			} else
+			{
+				levaGornja.x = x;
+			}
+			
+			if (pocetnaTacka.y < y)
+			{
+				levaGornja.y = pocetnaTacka.y;
+			} else
+			{
+				levaGornja.y = y;
+			}
+			
+			Kvadrat kvad = new Kvadrat(levaGornja, (int)(new Duz(this.pocetnaTacka, new Point(x, y))).vratiDuzinu());
 			figure.add(kvad);
 			this.crtanjeUtoku = false;
 			this.repaint();
@@ -133,13 +173,20 @@ public class PanelZaCrtanje extends JPanel
 		
 		if (crtanjeUtoku)
 		{
-			if (this.crtamoLiniju)
+			switch(this.figuraZaIscrtavanje)
 			{
-				g.drawLine(linijaZaIscrtavanje.vratiTackuA().x, linijaZaIscrtavanje.vratiTackuA().y,
-						linijaZaIscrtavanje.vratiTackuB().x, linijaZaIscrtavanje.vratiTackuB().y);
-			} else
-			{
-				g.drawOval(krugZaIscrtavanje.getCentar().x, krugZaIscrtavanje.getCentar().y, (int)krugZaIscrtavanje.getPrecnik().vratiDuzinu(), (int)krugZaIscrtavanje.getPrecnik().vratiDuzinu());
+				case "duz":
+					g.drawLine(linijaZaIscrtavanje.vratiTackuA().x, linijaZaIscrtavanje.vratiTackuA().y,
+							linijaZaIscrtavanje.vratiTackuB().x, linijaZaIscrtavanje.vratiTackuB().y);
+					break;
+				case "krug":
+					g.drawOval(krugZaIscrtavanje.getCentar().x, krugZaIscrtavanje.getCentar().y, (int)krugZaIscrtavanje.getPrecnik().vratiDuzinu(), (int)krugZaIscrtavanje.getPrecnik().vratiDuzinu());
+					break;
+				case "kvadrat":
+					g.drawRect(this.kvadZaIscrtavanje.vratiGornjuLevu().x,
+							   this.kvadZaIscrtavanje.vratiGornjuLevu().y, 
+							   this.kvadZaIscrtavanje.vratiDuzinu(), this.kvadZaIscrtavanje.vratiDuzinu());
+					break;
 			}
 		}
 	}

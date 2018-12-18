@@ -192,14 +192,16 @@ public class MainWindow {
 				switch (grupaZaCrtanje.getSelection().getActionCommand())
 				{
 					case "duz":
-						pnlZaCrtanje.crtamoLiniju = true;
+						pnlZaCrtanje.figuraZaIscrtavanje = "duz";
 						pnlZaCrtanje.iscrtavanje(arg0.getX(), arg0.getY());
 						break;
 					case "krug":
-						pnlZaCrtanje.crtamoLiniju = false;
+						pnlZaCrtanje.figuraZaIscrtavanje = "krug";
 						pnlZaCrtanje.iscrtavanje(arg0.getX(), arg0.getY());
 						break;
 					case "kvadrat":
+						pnlZaCrtanje.figuraZaIscrtavanje = "kvadrat";
+						pnlZaCrtanje.iscrtavanje(arg0.getX(), arg0.getY());
 						break;
 				}
 			}

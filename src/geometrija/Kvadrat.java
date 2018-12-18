@@ -8,6 +8,16 @@ public class Kvadrat extends Figura
 	Point gornjaLevaTacka;
 	int duzina;
 	
+	public Point vratiGornjuLevu()
+	{
+		return this.gornjaLevaTacka;
+	}
+	
+	public int vratiDuzinu()
+	{
+		return this.duzina;
+	}
+	
 	public Kvadrat (Point start, int duzina)
 	{
 		this.gornjaLevaTacka = start;
