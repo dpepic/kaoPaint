@@ -31,6 +31,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JToggleButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import java.awt.Component;
 
 public class MainWindow {
 
@@ -72,47 +73,51 @@ public class MainWindow {
 
 		JToggleButton tglbtnCrtajDuz = new JToggleButton("Crtanje duzi");
 		tglbtnCrtajDuz.setSelected(true);
+		tglbtnCrtajDuz.setActionCommand("duz");
 		pnlZaAlate.add(tglbtnCrtajDuz);
 
 		JToggleButton tglbtnCrtajKrug = new JToggleButton("Crtanje kruga");
+		tglbtnCrtajKrug.setActionCommand("krug");
 		pnlZaAlate.add(tglbtnCrtajKrug);
 
+		JToggleButton tglbtnCrtanjeKvadrata = new JToggleButton("Crtanje kvadrata");
+		tglbtnCrtanjeKvadrata.setActionCommand("kvadrat");
+		pnlZaAlate.add(tglbtnCrtanjeKvadrata);
+
 		PanelZaCrtanje pnlZaCrtanje = new PanelZaCrtanje();
-		pnlZaCrtanje.addMouseMotionListener(new MouseMotionAdapter() {
-			@Override
-			public void mouseMoved(MouseEvent arg0) 
-			{
-				if (tglbtnCrtajKrug.isSelected())
-				{
-					pnlZaCrtanje.crtamoLiniju = false;
-				} else
-				{
-					pnlZaCrtanje.crtamoLiniju = true;
-				}
-				pnlZaCrtanje.iscrtavanje(arg0.getX(), arg0.getY());
-			}
-		});
+		
+
+		pnlZaCrtanje.setBorder(new LineBorder(new Color(0, 0, 0)));
+		frmKaoPaint.getContentPane().add(pnlZaCrtanje, BorderLayout.CENTER);
+		pnlZaAlate.setLayout(new BoxLayout(pnlZaAlate, BoxLayout.Y_AXIS));
+
+
+
+		ButtonGroup grupaZaCrtanje = new ButtonGroup();
+		grupaZaCrtanje.add(tglbtnCrtajDuz);
+		grupaZaCrtanje.add(tglbtnCrtajKrug);
+		grupaZaCrtanje.add(tglbtnCrtanjeKvadrata);
+
 		pnlZaCrtanje.addMouseListener(new MouseAdapter() 
 		{
 			@Override
 			public void mousePressed(MouseEvent arg0) 
 			{
-				if (tglbtnCrtajDuz.isSelected())
+				switch (grupaZaCrtanje.getSelection().getActionCommand())
 				{
-					lblStatus.setText(pnlZaCrtanje.crtajDuz(arg0.getX(), arg0.getY()));
-				} else 
-				{
-					lblStatus.setText(pnlZaCrtanje.crtajKrug(arg0.getX(), arg0.getY()));
+					case "duz":
+						lblStatus.setText(pnlZaCrtanje.crtajDuz(arg0.getX(), arg0.getY()));
+						break;
+					case "krug":
+						lblStatus.setText(pnlZaCrtanje.crtajKrug(arg0.getX(), arg0.getY()));
+						break;
+					case "kvadrat":
+						lblStatus.setText(pnlZaCrtanje.crtajKvad(arg0.getX(), arg0.getY()));
+						break;
 				}
 			}
 		});
-		pnlZaCrtanje.setBorder(new LineBorder(new Color(0, 0, 0)));
-		frmKaoPaint.getContentPane().add(pnlZaCrtanje, BorderLayout.CENTER);
-		pnlZaAlate.setLayout(new BoxLayout(pnlZaAlate, BoxLayout.Y_AXIS));
 
-		ButtonGroup grupaZaCrtanje = new ButtonGroup();
-		grupaZaCrtanje.add(tglbtnCrtajDuz);
-		grupaZaCrtanje.add(tglbtnCrtajKrug);
 
 		JMenuBar menuBar = new JMenuBar();
 		frmKaoPaint.setJMenuBar(menuBar);
@@ -129,7 +134,7 @@ public class MainWindow {
 				{
 					JFileChooser odabir = new JFileChooser();
 					odabir.showOpenDialog(frmKaoPaint);
-					
+
 					FileInputStream inFajl = new FileInputStream(odabir.getSelectedFile());
 					ObjectInputStream inObj = new ObjectInputStream(inFajl);
 
@@ -179,5 +184,25 @@ public class MainWindow {
 			}
 		});
 		menuBar.add(mntmOcistiCrtez);
+		
+		pnlZaCrtanje.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent arg0) 
+			{
+				switch (grupaZaCrtanje.getSelection().getActionCommand())
+				{
+					case "duz":
+						pnlZaCrtanje.crtamoLiniju = true;
+						pnlZaCrtanje.iscrtavanje(arg0.getX(), arg0.getY());
+						break;
+					case "krug":
+						pnlZaCrtanje.crtamoLiniju = false;
+						pnlZaCrtanje.iscrtavanje(arg0.getX(), arg0.getY());
+						break;
+					case "kvadrat":
+						break;
+				}
+			}
+		});
 	}
 }

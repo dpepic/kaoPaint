@@ -1,38 +1,34 @@
 package geometrija;
 
-public class Kvadrat
+import java.awt.Graphics;
+import java.awt.Point;
+
+public class Kvadrat extends Figura
 {
-	Duz[] stranice;
+	Point gornjaLevaTacka;
+	int duzina;
 	
-	public Kvadrat ()
+	public Kvadrat (Point start, int duzina)
 	{
-		stranice = null;
-	}
-	
-	public Kvadrat (Duz stranica)
-	{
-		this.stranice = new Duz[4];
-		
-		for (int i = 0; i < 4; i++)
-		{
-			this.stranice[i] = stranica;
-		}
+		this.gornjaLevaTacka = start;
+		this.duzina = duzina;
 	}
 	
 	public double povrsina()
 	{
-		return Math.pow(stranice[0].vratiDuzinu(), 2);
+		return Math.pow(this.duzina, 2);
 	}
 	
 	public double obim()
 	{
-		double obim = 0;
-		
-		for (Duz stranica: stranice)
-		{
-			obim += stranica.vratiDuzinu();
-		}
-		return obim;
+		return this.duzina*4;
 	}
 
+	@Override
+	public void iscrtajSe(Graphics povrsinaZaCrtanje) 
+	{
+		povrsinaZaCrtanje.drawRect(this.gornjaLevaTacka.x, 
+				                   this.gornjaLevaTacka.y, 
+				                   this.duzina, this.duzina);
+	}
 }

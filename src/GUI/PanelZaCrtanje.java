@@ -103,6 +103,22 @@ public class PanelZaCrtanje extends JPanel
 		}
 	}
 	
+	public String crtajKvad(int x, int y) 
+	{
+		if (this.crtanjeUtoku)
+		{
+			Kvadrat kvad = new Kvadrat(pocetnaTacka, Math.abs(pocetnaTacka.x - x) );
+			figure.add(kvad);
+			this.crtanjeUtoku = false;
+			this.repaint();
+			return "Kvadrat nacrtan!";
+		} else
+		{
+			pocetnaTacka = new Point(x, y);
+			this.crtanjeUtoku = true;
+			return "Odredite duzinu stranice kvadrata...";
+		}
+	}
 	
 	@Override
 	protected void paintComponent(Graphics g)
