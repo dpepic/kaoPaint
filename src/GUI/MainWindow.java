@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
@@ -19,8 +20,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import javax.swing.BoxLayout;
@@ -118,6 +121,30 @@ public class MainWindow {
 		menuBar.add(mnFile);
 
 		JMenuItem mntmOpen = new JMenuItem("Open");
+		mntmOpen.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				try 
+				{
+					JFileChooser odabir = new JFileChooser();
+					odabir.showOpenDialog(frmKaoPaint);
+					
+					FileInputStream inFajl = new FileInputStream(odabir.getSelectedFile());
+					ObjectInputStream inObj = new ObjectInputStream(inFajl);
+
+					while (true)
+					{
+						Figura fig = (Figura)inObj.readObject();
+						pnlZaCrtanje.figure.add(fig);
+					}
+
+				} catch (IOException | ClassNotFoundException e) 
+				{
+					pnlZaCrtanje.repaint();
+				}
+			}
+		});
 		mnFile.add(mntmOpen);
 
 		JMenuItem mntmSave = new JMenuItem("Save");
@@ -127,7 +154,9 @@ public class MainWindow {
 			{
 				try
 				{
-					FileOutputStream fajl = new FileOutputStream("test.obj");
+					JFileChooser snimanje = new JFileChooser();
+					snimanje.showSaveDialog(frmKaoPaint);
+					FileOutputStream fajl = new FileOutputStream(snimanje.getSelectedFile());
 					ObjectOutputStream oOut = new ObjectOutputStream(fajl);
 					for (Figura fig: pnlZaCrtanje.figure)
 					{
@@ -140,6 +169,15 @@ public class MainWindow {
 		});
 		mnFile.add(mntmSave);
 
+		JMenuItem mntmOcistiCrtez = new JMenuItem("Ocisti crtez");
+		mntmOcistiCrtez.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				pnlZaCrtanje.figure.clear();
+				pnlZaCrtanje.repaint();
+			}
+		});
+		menuBar.add(mntmOcistiCrtez);
 	}
-
 }

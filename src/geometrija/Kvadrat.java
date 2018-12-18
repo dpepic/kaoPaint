@@ -1,6 +1,6 @@
 package geometrija;
 
-public class Kvadrat 
+public class Kvadrat
 {
 	Duz[] stranice;
 	
