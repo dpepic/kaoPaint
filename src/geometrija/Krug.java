@@ -2,9 +2,12 @@ package geometrija;
 
 import java.awt.Graphics;
 import java.awt.Point;
+import java.io.Serializable;
 
-public class Krug extends Figura
+public class Krug extends Figura implements Serializable 
 {
+	private static final long serialVersionUID = -3256449345963257501L;
+	
 	Point centar;
 	Duz precnik;
 	

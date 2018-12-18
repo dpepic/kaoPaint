@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 
 import geometrija.Duz;
+import geometrija.Figura;
 
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
@@ -18,9 +19,15 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JToggleButton;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class MainWindow {
 
@@ -50,25 +57,23 @@ public class MainWindow {
 		frmKaoPaint.setTitle("kao Paint :)");
 		frmKaoPaint.setBounds(100, 100, 450, 300);
 		frmKaoPaint.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		JMenuBar menuBar = new JMenuBar();
-		frmKaoPaint.setJMenuBar(menuBar);
+
 		frmKaoPaint.getContentPane().setLayout(new BorderLayout(0, 0));
-		
+
 		JLabel lblStatus = new JLabel("New label");
 		frmKaoPaint.getContentPane().add(lblStatus, BorderLayout.SOUTH);
-		
+
 		JPanel pnlZaAlate = new JPanel();
 		frmKaoPaint.getContentPane().add(pnlZaAlate, BorderLayout.WEST);
-		
+
 
 		JToggleButton tglbtnCrtajDuz = new JToggleButton("Crtanje duzi");
 		tglbtnCrtajDuz.setSelected(true);
 		pnlZaAlate.add(tglbtnCrtajDuz);
-		
+
 		JToggleButton tglbtnCrtajKrug = new JToggleButton("Crtanje kruga");
 		pnlZaAlate.add(tglbtnCrtajKrug);
-		
+
 		PanelZaCrtanje pnlZaCrtanje = new PanelZaCrtanje();
 		pnlZaCrtanje.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
@@ -100,24 +105,41 @@ public class MainWindow {
 		});
 		pnlZaCrtanje.setBorder(new LineBorder(new Color(0, 0, 0)));
 		frmKaoPaint.getContentPane().add(pnlZaCrtanje, BorderLayout.CENTER);
-		
-		JButton btnTest = new JButton("Proba");
-		btnTest.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent arg0) 
-			{
-				
-			}
-		});
 		pnlZaAlate.setLayout(new BoxLayout(pnlZaAlate, BoxLayout.Y_AXIS));
-		pnlZaAlate.add(btnTest);
-		
 
-		
 		ButtonGroup grupaZaCrtanje = new ButtonGroup();
 		grupaZaCrtanje.add(tglbtnCrtajDuz);
 		grupaZaCrtanje.add(tglbtnCrtajKrug);
-		
+
+		JMenuBar menuBar = new JMenuBar();
+		frmKaoPaint.setJMenuBar(menuBar);
+
+		JMenu mnFile = new JMenu("File");
+		menuBar.add(mnFile);
+
+		JMenuItem mntmOpen = new JMenuItem("Open");
+		mnFile.add(mntmOpen);
+
+		JMenuItem mntmSave = new JMenuItem("Save");
+		mntmSave.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				try
+				{
+					FileOutputStream fajl = new FileOutputStream("test.obj");
+					ObjectOutputStream oOut = new ObjectOutputStream(fajl);
+					for (Figura fig: pnlZaCrtanje.figure)
+					{
+						oOut.writeObject(fig);
+					}
+					oOut.close();
+					fajl.close();
+				} catch (IOException e) {}
+			}
+		});
+		mnFile.add(mntmSave);
+
 	}
 
 }

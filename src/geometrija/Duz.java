@@ -2,9 +2,12 @@ package geometrija;
 
 import java.awt.Graphics;
 import java.awt.Point;
+import java.io.Serializable;
 
-public class Duz extends Figura
+public class Duz extends Figura implements Serializable 
 {
+	private static final long serialVersionUID = 2143940809676698732L;
+	
 	Point a;
 	Point b;
 	
