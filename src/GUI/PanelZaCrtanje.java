@@ -35,14 +35,14 @@ public class PanelZaCrtanje extends JPanel
 				{
 					centar.x = x;
 				}
-				centar.y = y;
-				//if (pocetnaTacka.y < y)
-				//{
-				//	centar.y = pocetnaTacka.y;
-				//} else
-				//{
-				//	centar.y = y;
-				//}
+
+				if (pocetnaTacka.y < y)
+				{
+					centar.y = pocetnaTacka.y;
+				} else
+				{
+					centar.y = y;
+				}
 					
 				krugZaIscrtavanje = new Krug(centar, new Duz(pocetnaTacka, new Point(x, y)));	
 			}
@@ -64,14 +64,13 @@ public class PanelZaCrtanje extends JPanel
 			{
 				centar.x = x;
 			}
-			centar.y = y;
-			//if (pocetnaTacka.y < y)
-			//{
-			//	centar.y = pocetnaTacka.y;
-			//} else
-			//{
-			//	centar.y = y;
-			//}
+			if (pocetnaTacka.y < y)
+			{
+				centar.y = pocetnaTacka.y;
+			} else
+			{
+				centar.y = y;
+			}
 			
 			Krug nekiKrug = new Krug(centar, linija);
 	
