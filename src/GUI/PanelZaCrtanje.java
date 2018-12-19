@@ -72,8 +72,15 @@ public class PanelZaCrtanje extends JPanel
 					{
 						levaGornja.y = y;
 					}
+					int a = Math.abs(pocetnaTacka.y - y);
+					int b = Math.abs(pocetnaTacka.x - x);
 					
-					this.kvadZaIscrtavanje = new Kvadrat(levaGornja, (int)(new Duz(this.pocetnaTacka, new Point(x, y))).vratiDuzinu(), false);
+					int duzina = 0;
+					
+						     //pitanje       //ako je tacno      //ako nije tacno
+					duzina =    (a>b)      ?    a            :          b;
+
+					this.kvadZaIscrtavanje = new Kvadrat(levaGornja, duzina, this.pun);
 					break;
 			}
 			this.repaint();
@@ -156,7 +163,16 @@ public class PanelZaCrtanje extends JPanel
 				levaGornja.y = y;
 			}
 			
-			Kvadrat kvad = new Kvadrat(levaGornja, (int)(new Duz(this.pocetnaTacka, new Point(x, y))).vratiDuzinu(), this.pun);
+			int a = Math.abs(pocetnaTacka.y - y);
+			int b = Math.abs(pocetnaTacka.x - x);
+			
+			int duzina = 0;
+			
+				     //pitanje       //ako je tacno      //ako nije tacno
+			duzina =    (a>b)      ?    a            :          b;
+
+ 			Kvadrat kvad = new Kvadrat(levaGornja, duzina, this.pun);
+			
 			kvad.boja = this.bojaZaCrtanje;
 			kvad.debljina = this.debljinaLinije;
 			figure.add(kvad);
