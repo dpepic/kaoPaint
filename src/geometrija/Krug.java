@@ -9,6 +9,7 @@ public class Krug extends Figura
 	
 	Point centar;
 	Duz precnik;
+	boolean pun = false;
 	
 	public Point getCentar()
 	{
@@ -20,10 +21,11 @@ public class Krug extends Figura
 		return this.precnik;
 	}
 
-	public Krug(Point c, Duz p)
+	public Krug(Point c, Duz p, boolean pun)
 	{
 		this.centar = c;
 		this.precnik = p;
+		this.pun = pun;
 	}
 	
 	public double povrsina()
@@ -39,6 +41,13 @@ public class Krug extends Figura
 	@Override
 	public void iscrtajSe(Graphics povrsinaZaCrtanje) 
 	{
-		povrsinaZaCrtanje.drawOval(this.centar.x, this.centar.y, (int)this.precnik.vratiDuzinu(), (int)this.precnik.vratiDuzinu());	
+		if (this.pun)
+		{
+			povrsinaZaCrtanje.fillOval(this.centar.x, this.centar.y, (int)this.precnik.vratiDuzinu(), (int)this.precnik.vratiDuzinu());	
+		} else
+		{
+			povrsinaZaCrtanje.drawOval(this.centar.x, this.centar.y, (int)this.precnik.vratiDuzinu(), (int)this.precnik.vratiDuzinu());	
+		}
+		
 	}
 }

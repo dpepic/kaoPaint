@@ -1,5 +1,7 @@
 package GUI;
 import java.awt.EventQueue;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Point;
 
 import javax.swing.JFrame;
@@ -32,12 +34,21 @@ import javax.swing.JToggleButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.Component;
+import java.awt.Dimension;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.SwingConstants;
+import javax.swing.JCheckBox;
+import java.awt.Insets;
 
 public class MainWindow {
 
 	private JFrame frmKaoPaint;
+	private GridBagConstraints c_1;
+	private GridBagConstraints c_2;
+	private GridBagConstraints c_3;
+	private GridBagConstraints c_4;
 
 	/**
 	 * Launch the application.
@@ -61,7 +72,7 @@ public class MainWindow {
 	private void initialize() {
 		frmKaoPaint = new JFrame();
 		frmKaoPaint.setTitle("kao Paint :)");
-		frmKaoPaint.setBounds(100, 100, 450, 300);
+		frmKaoPaint.setBounds(100, 100, 637, 432);
 		frmKaoPaint.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		frmKaoPaint.getContentPane().setLayout(new BorderLayout(0, 0));
@@ -72,19 +83,74 @@ public class MainWindow {
 		JPanel pnlZaAlate = new JPanel();
 		frmKaoPaint.getContentPane().add(pnlZaAlate, BorderLayout.WEST);
 
-
+		
+		GridBagLayout gbl = new GridBagLayout();
+		pnlZaAlate.setLayout(gbl);
+		
+		JLabel lblIspunjen = new JLabel("FILL");
+		lblIspunjen.setHorizontalAlignment(SwingConstants.LEFT);
+		lblIspunjen.setVerticalTextPosition(SwingConstants.TOP);
+		lblIspunjen.setVerticalAlignment(SwingConstants.TOP);
+		GridBagConstraints gbc_lblIspunjen = new GridBagConstraints();
+		gbc_lblIspunjen.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblIspunjen.insets = new Insets(0, 0, 5, 5);
+		gbc_lblIspunjen.gridx = 1;
+		gbc_lblIspunjen.gridy = 1;
+		pnlZaAlate.add(lblIspunjen, gbc_lblIspunjen);
+		
+		JLabel lblLock = new JLabel("LOCK");
+		GridBagConstraints gbc_lblLock = new GridBagConstraints();
+		gbc_lblLock.insets = new Insets(0, 0, 5, 0);
+		gbc_lblLock.gridx = 2;
+		gbc_lblLock.gridy = 1;
+		pnlZaAlate.add(lblLock, gbc_lblLock);
+		
+		JCheckBox chckbxKrug = new JCheckBox("");
+		chckbxKrug.setToolTipText("Da li je pravilan krug");
+		chckbxKrug.setSelected(true);
+		GridBagConstraints gbc_chckbxKrug = new GridBagConstraints();
+		gbc_chckbxKrug.insets = new Insets(0, 0, 5, 0);
+		gbc_chckbxKrug.gridx = 2;
+		gbc_chckbxKrug.gridy = 3;
+		pnlZaAlate.add(chckbxKrug, gbc_chckbxKrug);
+		
+		JCheckBox chckbxIspunjenjKrug = new JCheckBox("");
+		chckbxIspunjenjKrug.setToolTipText("Da li je ispunjen");
+		GridBagConstraints gbc_chckbxIspunjenjKrug = new GridBagConstraints();
+		gbc_chckbxIspunjenjKrug.insets = new Insets(0, 0, 5, 5);
+		gbc_chckbxIspunjenjKrug.gridx = 1;
+		gbc_chckbxIspunjenjKrug.gridy = 3;
+		pnlZaAlate.add(chckbxIspunjenjKrug, gbc_chckbxIspunjenjKrug);
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.insets = new Insets(0, 0, 5, 5);
+		
+		
 		JToggleButton tglbtnCrtajDuz = new JToggleButton("Crtanje duzi");
 		tglbtnCrtajDuz.setSelected(true);
+		c.gridx = 0;
+		c.gridy = 2;
 		tglbtnCrtajDuz.setActionCommand("duz");
-		pnlZaAlate.add(tglbtnCrtajDuz);
+		
+		pnlZaAlate.add(tglbtnCrtajDuz, c);
 
 		JToggleButton tglbtnCrtajKrug = new JToggleButton("Crtanje kruga");
 		tglbtnCrtajKrug.setActionCommand("krug");
-		pnlZaAlate.add(tglbtnCrtajKrug);
+		c_1 = new GridBagConstraints();
+		c_1.fill = GridBagConstraints.HORIZONTAL;
+		c_1.insets = new Insets(0, 0, 5, 5);
+		c_1.gridx = 0;
+		c_1.gridy = 3;
+		pnlZaAlate.add(tglbtnCrtajKrug, c_1);
 
 		JToggleButton tglbtnCrtanjeKvadrata = new JToggleButton("Crtanje kvadrata");
 		tglbtnCrtanjeKvadrata.setActionCommand("kvadrat");
-		pnlZaAlate.add(tglbtnCrtanjeKvadrata);
+		c_2 = new GridBagConstraints();
+		c_2.fill = GridBagConstraints.HORIZONTAL;
+		c_2.insets = new Insets(0, 0, 5, 5);
+		c_2.gridx = 0;
+		c_2.gridy = 4;
+		pnlZaAlate.add(tglbtnCrtanjeKvadrata, c_2);
 
 		PanelZaCrtanje pnlZaCrtanje = new PanelZaCrtanje();
 		pnlZaCrtanje.setBackground(Color.WHITE);
@@ -92,23 +158,47 @@ public class MainWindow {
 
 		pnlZaCrtanje.setBorder(new LineBorder(new Color(0, 0, 0)));
 		frmKaoPaint.getContentPane().add(pnlZaCrtanje, BorderLayout.CENTER);
-		pnlZaAlate.setLayout(new BoxLayout(pnlZaAlate, BoxLayout.Y_AXIS));
-
-
 
 		ButtonGroup grupaZaCrtanje = new ButtonGroup();
 		grupaZaCrtanje.add(tglbtnCrtajDuz);
 		grupaZaCrtanje.add(tglbtnCrtajKrug);
 		grupaZaCrtanje.add(tglbtnCrtanjeKvadrata);
 		
+		JCheckBox chckbxIspunjen = new JCheckBox("");
+		chckbxIspunjen.setToolTipText("Da li je ispunjen");
+		GridBagConstraints gbc_chckbxIspunjen = new GridBagConstraints();
+		gbc_chckbxIspunjen.insets = new Insets(0, 0, 5, 5);
+		gbc_chckbxIspunjen.gridx = 1;
+		gbc_chckbxIspunjen.gridy = 4;
+		pnlZaAlate.add(chckbxIspunjen, gbc_chckbxIspunjen);
+		
+		JCheckBox chckbxKvadrat = new JCheckBox("");
+		chckbxKvadrat.setToolTipText("Da li je pravilan");
+		chckbxKvadrat.setSelected(true);
+		GridBagConstraints gbc_chckbxKvadrat = new GridBagConstraints();
+		gbc_chckbxKvadrat.insets = new Insets(0, 0, 5, 0);
+		gbc_chckbxKvadrat.gridx = 2;
+		gbc_chckbxKvadrat.gridy = 4;
+		pnlZaAlate.add(chckbxKvadrat, gbc_chckbxKvadrat);
+		
 		JComboBox cmbBoje = new JComboBox();
 		cmbBoje.setModel(new DefaultComboBoxModel(new String[] {"Crna", "Zelena", "Crvena", "Siva", "Zuta", "Plava"}));
 		cmbBoje.setSelectedIndex(0);
-		pnlZaAlate.add(cmbBoje);
+		c_3 = new GridBagConstraints();
+		c_3.insets = new Insets(0, 0, 5, 5);
+		c_3.gridx = 0;
+		c_3.anchor = GridBagConstraints.WEST;
+		c_3.gridy = 5;
+		pnlZaAlate.add(cmbBoje, c_3);
 		
 		JComboBox cmbDebljina = new JComboBox();
 		cmbDebljina.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5"}));
-		pnlZaAlate.add(cmbDebljina);
+		c_4 = new GridBagConstraints();
+		c_4.insets = new Insets(0, 0, 0, 5);
+		c_4.gridx = 0;
+		c_4.anchor = GridBagConstraints.WEST;
+		c_4.gridy = 6;
+		pnlZaAlate.add(cmbDebljina, c_4);
 
 		pnlZaCrtanje.addMouseListener(new MouseAdapter() 
 		{
@@ -123,9 +213,13 @@ public class MainWindow {
 						lblStatus.setText(pnlZaCrtanje.crtajDuz(arg0.getX(), arg0.getY()));
 						break;
 					case "krug":
+						pnlZaCrtanje.pun = chckbxIspunjenjKrug.isSelected();
+						pnlZaCrtanje.lock = chckbxKrug.isSelected();
 						lblStatus.setText(pnlZaCrtanje.crtajKrug(arg0.getX(), arg0.getY()));
 						break;
 					case "kvadrat":
+						pnlZaCrtanje.pun = chckbxIspunjen.isSelected();
+						pnlZaCrtanje.lock = chckbxKvadrat.isSelected();
 						lblStatus.setText(pnlZaCrtanje.crtajKvad(arg0.getX(), arg0.getY()));
 						break;
 				}

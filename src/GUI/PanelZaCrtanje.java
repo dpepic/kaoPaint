@@ -22,6 +22,8 @@ public class PanelZaCrtanje extends JPanel
 	public String figuraZaIscrtavanje = "duz";
 	public String bojaZaCrtanje = "crna";
 	public int debljinaLinije = 1;
+	public boolean pun = false;
+	public boolean lock = false;
 	
 	public void iscrtavanje(int x, int y)
 	{
@@ -51,7 +53,7 @@ public class PanelZaCrtanje extends JPanel
 						centar.y = y;
 					}
 						
-					krugZaIscrtavanje = new Krug(centar, new Duz(pocetnaTacka, new Point(x, y)));	
+					krugZaIscrtavanje = new Krug(centar, new Duz(pocetnaTacka, new Point(x, y)), false);	
 					break;
 				case "kvadrat":
 					Point levaGornja = new Point();
@@ -71,7 +73,7 @@ public class PanelZaCrtanje extends JPanel
 						levaGornja.y = y;
 					}
 					
-					this.kvadZaIscrtavanje = new Kvadrat(levaGornja, (int)(new Duz(this.pocetnaTacka, new Point(x, y))).vratiDuzinu());
+					this.kvadZaIscrtavanje = new Kvadrat(levaGornja, (int)(new Duz(this.pocetnaTacka, new Point(x, y))).vratiDuzinu(), false);
 					break;
 			}
 			this.repaint();
@@ -100,8 +102,9 @@ public class PanelZaCrtanje extends JPanel
 				centar.y = y;
 			}
 			
-			Krug nekiKrug = new Krug(centar, linija);
+			Krug nekiKrug = new Krug(centar, linija, this.pun);
 			nekiKrug.boja = this.bojaZaCrtanje;
+			nekiKrug.debljina = this.debljinaLinije;
 			figure.add(nekiKrug);
 			crtanjeUtoku = false;
 			this.repaint();
@@ -119,6 +122,7 @@ public class PanelZaCrtanje extends JPanel
 		{
 			Duz linija = new Duz(pocetnaTacka, new Point(x, y));
 			linija.boja = this.bojaZaCrtanje;
+			linija.debljina = this.debljinaLinije;
 			figure.add(linija);
 			crtanjeUtoku = false;
 			this.repaint();
@@ -152,8 +156,9 @@ public class PanelZaCrtanje extends JPanel
 				levaGornja.y = y;
 			}
 			
-			Kvadrat kvad = new Kvadrat(levaGornja, (int)(new Duz(this.pocetnaTacka, new Point(x, y))).vratiDuzinu());
+			Kvadrat kvad = new Kvadrat(levaGornja, (int)(new Duz(this.pocetnaTacka, new Point(x, y))).vratiDuzinu(), this.pun);
 			kvad.boja = this.bojaZaCrtanje;
+			kvad.debljina = this.debljinaLinije;
 			figure.add(kvad);
 			this.crtanjeUtoku = false;
 			this.repaint();
@@ -172,10 +177,10 @@ public class PanelZaCrtanje extends JPanel
 		super.paintComponent(g);
 		
 		Graphics2D g2d = (Graphics2D)g;
-		g2d.setStroke(new BasicStroke(debljinaLinije));
 		
 		for (Figura neka: figure)
 		{
+			g2d.setStroke(new BasicStroke(neka.debljina));
 			switch (neka.boja)
 			{
 				case "crna":
