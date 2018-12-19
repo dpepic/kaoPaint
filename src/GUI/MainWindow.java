@@ -32,6 +32,8 @@ import javax.swing.JToggleButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.Component;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class MainWindow {
 
@@ -85,6 +87,7 @@ public class MainWindow {
 		pnlZaAlate.add(tglbtnCrtanjeKvadrata);
 
 		PanelZaCrtanje pnlZaCrtanje = new PanelZaCrtanje();
+		pnlZaCrtanje.setBackground(Color.WHITE);
 		
 
 		pnlZaCrtanje.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -97,12 +100,23 @@ public class MainWindow {
 		grupaZaCrtanje.add(tglbtnCrtajDuz);
 		grupaZaCrtanje.add(tglbtnCrtajKrug);
 		grupaZaCrtanje.add(tglbtnCrtanjeKvadrata);
+		
+		JComboBox cmbBoje = new JComboBox();
+		cmbBoje.setModel(new DefaultComboBoxModel(new String[] {"Crna", "Zelena", "Crvena", "Siva", "Zuta", "Plava"}));
+		cmbBoje.setSelectedIndex(0);
+		pnlZaAlate.add(cmbBoje);
+		
+		JComboBox cmbDebljina = new JComboBox();
+		cmbDebljina.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5"}));
+		pnlZaAlate.add(cmbDebljina);
 
 		pnlZaCrtanje.addMouseListener(new MouseAdapter() 
 		{
 			@Override
 			public void mousePressed(MouseEvent arg0) 
 			{
+				pnlZaCrtanje.bojaZaCrtanje = cmbBoje.getSelectedItem().toString().toLowerCase();
+				pnlZaCrtanje.debljinaLinije = Integer.parseInt(cmbDebljina.getSelectedItem().toString());
 				switch (grupaZaCrtanje.getSelection().getActionCommand())
 				{
 					case "duz":

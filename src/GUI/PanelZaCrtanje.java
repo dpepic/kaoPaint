@@ -1,6 +1,9 @@
 package GUI;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 
 import javax.swing.JPanel;
@@ -17,6 +20,8 @@ public class PanelZaCrtanje extends JPanel
 	Point pocetnaTacka = new Point();
 	public boolean crtanjeUtoku = false;
 	public String figuraZaIscrtavanje = "duz";
+	public String bojaZaCrtanje = "crna";
+	public int debljinaLinije = 1;
 	
 	public void iscrtavanje(int x, int y)
 	{
@@ -96,7 +101,7 @@ public class PanelZaCrtanje extends JPanel
 			}
 			
 			Krug nekiKrug = new Krug(centar, linija);
-	
+			nekiKrug.boja = this.bojaZaCrtanje;
 			figure.add(nekiKrug);
 			crtanjeUtoku = false;
 			this.repaint();
@@ -113,7 +118,7 @@ public class PanelZaCrtanje extends JPanel
 		if (crtanjeUtoku)
 		{
 			Duz linija = new Duz(pocetnaTacka, new Point(x, y));
-		
+			linija.boja = this.bojaZaCrtanje;
 			figure.add(linija);
 			crtanjeUtoku = false;
 			this.repaint();
@@ -148,6 +153,7 @@ public class PanelZaCrtanje extends JPanel
 			}
 			
 			Kvadrat kvad = new Kvadrat(levaGornja, (int)(new Duz(this.pocetnaTacka, new Point(x, y))).vratiDuzinu());
+			kvad.boja = this.bojaZaCrtanje;
 			figure.add(kvad);
 			this.crtanjeUtoku = false;
 			this.repaint();
@@ -165,14 +171,40 @@ public class PanelZaCrtanje extends JPanel
 	{
 		super.paintComponent(g);
 		
+		Graphics2D g2d = (Graphics2D)g;
+		g2d.setStroke(new BasicStroke(debljinaLinije));
+		
 		for (Figura neka: figure)
 		{
+			switch (neka.boja)
+			{
+				case "crna":
+					g.setColor(Color.BLACK);
+					break;
+				case "zelena":
+					g.setColor(Color.GREEN);
+					break;
+				case "crvena":
+					g.setColor(Color.RED);
+					break;
+				case "siva":
+					g.setColor(Color.GRAY);
+					break;
+				case "zuta":
+					g.setColor(Color.YELLOW);
+					break;
+				case "plava":
+					g.setColor(Color.BLUE);
+					break;
+			}
 			neka.iscrtajSe(g);
 		}
 		
 		
 		if (crtanjeUtoku)
 		{
+			g.setColor(Color.BLACK);
+			g2d.setStroke(new BasicStroke(1));
 			switch(this.figuraZaIscrtavanje)
 			{
 				case "duz":
