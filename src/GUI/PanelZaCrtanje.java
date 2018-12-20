@@ -18,6 +18,7 @@ public class PanelZaCrtanje extends JPanel
 	Krug krugZaIscrtavanje;
 	Kvadrat kvadZaIscrtavanje;
 	Pravougaonik pravougZaIscrtavanje;
+	Elipsa elipsaZaIscrtavanje;
 	Point pocetnaTacka = new Point();
 	public boolean crtanjeUtoku = false;
 	public String figuraZaIscrtavanje = "duz";
@@ -36,25 +37,33 @@ public class PanelZaCrtanje extends JPanel
 				linijaZaIscrtavanje = new Duz(pocetnaTacka, new Point(x, y));
 				break;
 			case "krug":
-				Point centar = new Point();
+				Point gornjaLeva = new Point();
 
 				if (pocetnaTacka.x < x)
 				{
-					centar.x = pocetnaTacka.x;
+					gornjaLeva.x = pocetnaTacka.x;
 				} else
 				{
-					centar.x = x;
+					gornjaLeva.x = x;
 				}
 
 				if (pocetnaTacka.y < y)
 				{
-					centar.y = pocetnaTacka.y;
+					gornjaLeva.y = pocetnaTacka.y;
 				} else
 				{
-					centar.y = y;
+					gornjaLeva.y = y;
 				}
 
-				krugZaIscrtavanje = new Krug(centar, new Duz(pocetnaTacka, new Point(x, y)), false);	
+				if (this.lock)
+				{
+					krugZaIscrtavanje = new Krug(gornjaLeva, new Duz(pocetnaTacka, new Point(x, y)), false);	
+				} else
+				{
+					int visina = Math.abs(pocetnaTacka.y - y);
+					int duzina = Math.abs(pocetnaTacka.x - x);
+					elipsaZaIscrtavanje = new Elipsa(gornjaLeva, visina, duzina, false);
+				}
 				break;
 			case "kvadrat":
 				Point levaGornja = new Point();
@@ -100,26 +109,36 @@ public class PanelZaCrtanje extends JPanel
 		{
 			Duz linija = new Duz(pocetnaTacka, new Point(x, y));
 
-			Point centar = new Point();
+			Point gornjaLeva = new Point();
 			if (pocetnaTacka.x < x)
 			{
-				centar.x = pocetnaTacka.x;
+				gornjaLeva.x = pocetnaTacka.x;
 			} else
 			{
-				centar.x = x;
+				gornjaLeva.x = x;
 			}
 			if (pocetnaTacka.y < y)
 			{
-				centar.y = pocetnaTacka.y;
+				gornjaLeva.y = pocetnaTacka.y;
 			} else
 			{
-				centar.y = y;
+				gornjaLeva.y = y;
 			}
 
-			Krug nekiKrug = new Krug(centar, linija, this.pun);
-			nekiKrug.boja = this.bojaZaCrtanje;
-			nekiKrug.debljina = this.debljinaLinije;
-			figure.add(nekiKrug);
+			if (this.lock)
+			{
+				Krug nekiKrug = new Krug(gornjaLeva, linija, this.pun);
+				nekiKrug.boja = this.bojaZaCrtanje;
+				nekiKrug.debljina = this.debljinaLinije;
+				figure.add(nekiKrug);
+			} else
+			{
+				int visina = Math.abs(pocetnaTacka.y - y);
+				int duzina = Math.abs(pocetnaTacka.x - x);
+				
+				Elipsa nekaElipsa = new Elipsa(gornjaLeva, visina, duzina, this.pun);
+				figure.add(nekaElipsa);
+			}
 			crtanjeUtoku = false;
 			this.repaint();
 			return "Kruznica iscrtana!";
@@ -255,7 +274,13 @@ public class PanelZaCrtanje extends JPanel
 						linijaZaIscrtavanje.vratiTackuB().x, linijaZaIscrtavanje.vratiTackuB().y);
 				break;
 			case "krug":
-				g.drawOval(krugZaIscrtavanje.getCentar().x, krugZaIscrtavanje.getCentar().y, (int)krugZaIscrtavanje.getPrecnik().vratiDuzinu(), (int)krugZaIscrtavanje.getPrecnik().vratiDuzinu());
+				if (this.lock)
+				{
+					g.drawOval(krugZaIscrtavanje.getCentar().x, krugZaIscrtavanje.getCentar().y, (int)krugZaIscrtavanje.getPrecnik().vratiDuzinu(), (int)krugZaIscrtavanje.getPrecnik().vratiDuzinu());
+				} else
+				{
+					g.drawOval(elipsaZaIscrtavanje.getCentar().x, elipsaZaIscrtavanje.getCentar().y, elipsaZaIscrtavanje.vratiSirinu(), elipsaZaIscrtavanje.vratiVisinu());
+				}
 				break;
 			case "kvadrat":
 				if (this.lock)

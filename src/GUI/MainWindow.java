@@ -87,6 +87,13 @@ public class MainWindow {
 		GridBagLayout gbl = new GridBagLayout();
 		pnlZaAlate.setLayout(gbl);
 		
+		JToggleButton tglbtnSelekcija = new JToggleButton("Selekcija");
+		GridBagConstraints gbc_tglbtnSelekcija = new GridBagConstraints();
+		gbc_tglbtnSelekcija.insets = new Insets(0, 0, 5, 5);
+		gbc_tglbtnSelekcija.gridx = 0;
+		gbc_tglbtnSelekcija.gridy = 1;
+		pnlZaAlate.add(tglbtnSelekcija, gbc_tglbtnSelekcija);
+		
 		JLabel lblIspunjen = new JLabel("FILL");
 		lblIspunjen.setHorizontalAlignment(SwingConstants.LEFT);
 		lblIspunjen.setVerticalTextPosition(SwingConstants.TOP);
@@ -224,6 +231,13 @@ public class MainWindow {
 						break;
 				}
 			}
+			@Override
+			public void mouseExited(MouseEvent arg0) 
+			{
+				pnlZaCrtanje.crtanjeUtoku = false;
+				pnlZaCrtanje.repaint();			
+			}
+			
 		});
 
 
