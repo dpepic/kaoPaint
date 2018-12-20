@@ -18,7 +18,7 @@ public class Kvadrat extends Figura
 	{
 		return this.duzina;
 	}
-
+	
 	public Kvadrat (Point start, int duzina, boolean pun)
 	{
 		this.gornjaLevaTacka = start;
