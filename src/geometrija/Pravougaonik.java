@@ -28,13 +28,13 @@ public class Pravougaonik extends Kvadrat
 	{
 		if (this.pun)
 		{
-			povrsinaZaCrtanje.fillRect(this.gornjaLevaTacka.x, 
-					this.gornjaLevaTacka.y, 
+			povrsinaZaCrtanje.fillRect(this.gornjaLeva.x, 
+					this.gornjaLeva.y, 
 					this.duzina, this.visina);
 		} else
 		{
-			povrsinaZaCrtanje.drawRect(this.gornjaLevaTacka.x, 
-					this.gornjaLevaTacka.y, 
+			povrsinaZaCrtanje.drawRect(this.gornjaLeva.x, 
+					this.gornjaLeva.y, 
 					this.duzina, this.visina);
 		}
 	}

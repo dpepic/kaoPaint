@@ -232,6 +232,7 @@ public class MainWindow {
 						lblStatus.setText(pnlZaCrtanje.crtajKvad(arg0.getX(), arg0.getY()));
 						break;
 					case "selekcija":
+						pnlZaCrtanje.selektuj(arg0.getX(), arg0.getY());
 						break;
 				}
 			}

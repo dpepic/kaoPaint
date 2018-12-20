@@ -19,6 +19,7 @@ public class PanelZaCrtanje extends JPanel
 	Kvadrat kvadZaIscrtavanje;
 	Pravougaonik pravougZaIscrtavanje;
 	Elipsa elipsaZaIscrtavanje;
+	Figura selektovanaFig = null;
 	Point pocetnaTacka = new Point();
 	public boolean crtanjeUtoku = false;
 	public String figuraZaIscrtavanje = "duz";
@@ -27,6 +28,19 @@ public class PanelZaCrtanje extends JPanel
 	public boolean pun = false;
 	public boolean lock = true;
 
+	public void selektuj(int x, int y)
+	{
+		for (Figura fig: this.figure)
+		{
+			if ((fig.vratiGornjuLevu().x <= x) && 
+			    (x <= fig.vratiGornjuLevu().x + fig.vratiDuzinu()) &&
+			    (fig.vratiGornjuLevu().y <= y)  &&
+			    (y <= fig.vratiGornjuLevu().y + fig.vratiVisinu()))
+			{
+				System.out.println("KLIK!");
+			}
+		}
+	}
 	public void iscrtavanje(int x, int y)
 	{
 		if (crtanjeUtoku)
@@ -289,10 +303,10 @@ public class PanelZaCrtanje extends JPanel
 			case "krug":
 				if (this.lock)
 				{
-					g.drawOval(krugZaIscrtavanje.getCentar().x, krugZaIscrtavanje.getCentar().y, krugZaIscrtavanje.vratiDuzinu(), krugZaIscrtavanje.vratiDuzinu());
+					g.drawOval(krugZaIscrtavanje.vratiGornjuLevu().x, krugZaIscrtavanje.vratiGornjuLevu().y, krugZaIscrtavanje.vratiDuzinu(), krugZaIscrtavanje.vratiDuzinu());
 				} else
 				{
-					g.drawOval(elipsaZaIscrtavanje.getCentar().x, elipsaZaIscrtavanje.getCentar().y, elipsaZaIscrtavanje.vratiDuzinu(), elipsaZaIscrtavanje.vratiVisinu());
+					g.drawOval(elipsaZaIscrtavanje.vratiGornjuLevu().x, elipsaZaIscrtavanje.vratiGornjuLevu().y, elipsaZaIscrtavanje.vratiDuzinu(), elipsaZaIscrtavanje.vratiVisinu());
 				}
 				break;
 			case "kvadrat":

@@ -6,24 +6,23 @@ import java.io.Serializable;
 
 public class Krug extends Figura  
 {
-	
-	Point centar;
 	int duzina;
 	boolean pun = false;
 	
-	public Point getCentar()
-	{
-		return this.centar;
-	}
 	
 	public int vratiDuzinu()
+	{
+		return this.duzina;
+	}
+	
+	public int vratiVisinu()
 	{
 		return this.duzina;
 	}
 
 	public Krug(Point c, int duzina, boolean pun)
 	{
-		this.centar = c;
+		this.gornjaLeva = c;
 		this.duzina = duzina;
 		this.pun = pun;
 	}
@@ -43,10 +42,10 @@ public class Krug extends Figura
 	{
 		if (this.pun)
 		{
-			povrsinaZaCrtanje.fillOval(this.centar.x, this.centar.y, this.duzina, this.duzina);	
+			povrsinaZaCrtanje.fillOval(this.gornjaLeva.x, this.gornjaLeva.y, this.duzina, this.duzina);	
 		} else
 		{
-			povrsinaZaCrtanje.drawOval(this.centar.x, this.centar.y, this.duzina, this.duzina);	
+			povrsinaZaCrtanje.drawOval(this.gornjaLeva.x, this.gornjaLeva.y, this.duzina, this.duzina);	
 		}
 		
 	}

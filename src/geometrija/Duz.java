@@ -27,9 +27,9 @@ public class Duz extends Figura
 		this.b = druga;
 	}
 	
-	public double vratiDuzinu()
+	public int vratiDuzinu()
 	{
-		return Math.sqrt((Math.pow((b.x - a.x), 2) + Math.pow((b.y - a.y), 2)));  
+		return (int)Math.round(Math.sqrt((Math.pow((b.x - a.x), 2) + Math.pow((b.y - a.y), 2))));  
 	}
 
 	@Override
@@ -37,5 +37,11 @@ public class Duz extends Figura
 	{
 		povrsinaZaCrtanje.drawLine(this.a.x, this.a.y,
 				                   this.b.x, this.b.y);
+	}
+
+	@Override
+	public int vratiVisinu() 
+	{
+		return this.debljina;
 	}
 }
