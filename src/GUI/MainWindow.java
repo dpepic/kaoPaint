@@ -88,6 +88,7 @@ public class MainWindow {
 		pnlZaAlate.setLayout(gbl);
 		
 		JToggleButton tglbtnSelekcija = new JToggleButton("Selekcija");
+		tglbtnSelekcija.setActionCommand("selekcija");
 		GridBagConstraints gbc_tglbtnSelekcija = new GridBagConstraints();
 		gbc_tglbtnSelekcija.insets = new Insets(0, 0, 5, 5);
 		gbc_tglbtnSelekcija.gridx = 0;
@@ -170,6 +171,7 @@ public class MainWindow {
 		grupaZaCrtanje.add(tglbtnCrtajDuz);
 		grupaZaCrtanje.add(tglbtnCrtajKrug);
 		grupaZaCrtanje.add(tglbtnCrtanjeKvadrata);
+		grupaZaCrtanje.add(tglbtnSelekcija);
 		
 		JCheckBox chckbxIspunjen = new JCheckBox("");
 		chckbxIspunjen.setToolTipText("Da li je ispunjen");
@@ -228,6 +230,8 @@ public class MainWindow {
 						pnlZaCrtanje.pun = chckbxIspunjen.isSelected();
 						pnlZaCrtanje.lock = chckbxKvadrat.isSelected();
 						lblStatus.setText(pnlZaCrtanje.crtajKvad(arg0.getX(), arg0.getY()));
+						break;
+					case "selekcija":
 						break;
 				}
 			}
