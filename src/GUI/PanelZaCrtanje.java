@@ -21,7 +21,7 @@ public class PanelZaCrtanje extends JPanel
 	Point pocetnaTacka = new Point();
 	public boolean crtanjeUtoku = false;
 	public String figuraZaIscrtavanje = "duz";
-	public String bojaZaCrtanje = "crna";
+	public Color bojaZaCrtanje = Color.BLACK;
 	public int debljinaLinije = 1;
 	public boolean pun = false;
 	public boolean lock = true;
@@ -288,27 +288,7 @@ public class PanelZaCrtanje extends JPanel
 				selektovana = neka;
 			}
 			g2d.setStroke(new BasicStroke(neka.debljina));
-			switch (neka.boja)
-			{
-			case "crna":
-				g.setColor(Color.BLACK);
-				break;
-			case "zelena":
-				g.setColor(Color.GREEN);
-				break;
-			case "crvena":
-				g.setColor(Color.RED);
-				break;
-			case "siva":
-				g.setColor(Color.GRAY);
-				break;
-			case "zuta":
-				g.setColor(Color.YELLOW);
-				break;
-			case "plava":
-				g.setColor(Color.BLUE);
-				break;
-			}
+			
 			neka.iscrtajSe(g);
 		}
 		

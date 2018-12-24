@@ -214,7 +214,27 @@ public class MainWindow {
 			@Override
 			public void mousePressed(MouseEvent arg0) 
 			{
-				pnlZaCrtanje.bojaZaCrtanje = cmbBoje.getSelectedItem().toString().toLowerCase();
+				switch (cmbBoje.getSelectedItem().toString())
+				{
+				case "Crna":
+					pnlZaCrtanje.bojaZaCrtanje = Color.BLACK;
+					break;
+				case "Zelena":
+					pnlZaCrtanje.bojaZaCrtanje = Color.GREEN;
+					break;
+				case "Crvena":
+					pnlZaCrtanje.bojaZaCrtanje = Color.RED;
+					break;
+				case "Siva":
+					pnlZaCrtanje.bojaZaCrtanje = Color.GRAY;
+					break;
+				case "Zuta":
+					pnlZaCrtanje.bojaZaCrtanje = Color.YELLOW;
+					break;
+				case "Plava":
+					pnlZaCrtanje.bojaZaCrtanje = Color.BLUE;
+					break;
+				}
 				pnlZaCrtanje.debljinaLinije = Integer.parseInt(cmbDebljina.getSelectedItem().toString());
 				switch (grupaZaCrtanje.getSelection().getActionCommand())
 				{

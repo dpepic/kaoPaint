@@ -23,16 +23,9 @@ public class Duz extends Figura
 	
 	public Duz(Point prva, Point druga)
 	{
-		if (prva.x <= druga.x)
-		{
-			this.gornjaLeva = prva;
-		} else
-		{
-			this.gornjaLeva = druga;
-		}
 		this.a = prva;
 		this.b = druga;
-		
+		this.gornjaLeva = this.vratiGornjuLevu();
 	}
 	
 	public int vratiDuzinu()
@@ -46,15 +39,31 @@ public class Duz extends Figura
 		super.iscrtajSe(povrsinaZaCrtanje);
 		povrsinaZaCrtanje.drawLine(this.a.x, this.a.y,
 				                   this.b.x, this.b.y);
-		
-		povrsinaZaCrtanje.setColor(Color.CYAN);
-		povrsinaZaCrtanje.drawRect(this.gornjaLeva.x, this.gornjaLeva.y, 
-									100, 100);
 	}
 
 	@Override
 	public int vratiVisinu() 
 	{
 		return (int)Math.abs(this.a.getY() - this.b.getY());
+	}
+	
+	@Override
+	public Point vratiGornjuLevu()
+	{
+		Point tacka;
+		if (a.getX() <= b.getX() && a.getY() <= b.getY())
+		{
+			tacka = this.a;
+		} else if (a.getX() <= b.getX() && a.getY() > b.getY())
+		{
+			tacka = new Point((int)a.getX(), (int)a.getY() - this.vratiVisinu());
+		} else if (a.getX() > b.getX() && a.getY() > b.getY())
+		{
+			tacka = this.b;
+		} else 
+		{
+			tacka = new Point((int)b.getX(), (int)b.getY() - this.vratiVisinu());
+		}
+		return tacka;
 	}
 }

@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 abstract public class Figura implements Serializable 
 {
-	public String boja = "crna";
+	public Color boja = Color.BLACK;
 	public int debljina = 1;
 	Point gornjaLeva;
 	public boolean selektovana = false;
@@ -27,11 +27,16 @@ abstract public class Figura implements Serializable
 		{
 			povrsinaZaCrtanje.setColor(Color.PINK);
 			
-			Graphics2D g2d = (Graphics2D)povrsinaZaCrtanje;
-			g2d.setStroke(new BasicStroke(3));
-			
-			povrsinaZaCrtanje.drawString("SELEKTOVANA!", this.gornjaLeva.x, this.gornjaLeva.y);
+			povrsinaZaCrtanje.fillRect(this.vratiGornjuLevu().x - 5, this.vratiGornjuLevu().y - 5, 
+					                   10, 10);
+			povrsinaZaCrtanje.fillRect(this.vratiGornjuLevu().x + this.vratiDuzinu() - 5, this.vratiGornjuLevu().y - 5, 
+	                   10, 10);
+			povrsinaZaCrtanje.fillRect(this.vratiGornjuLevu().x - 5, this.vratiGornjuLevu().y + this.vratiVisinu() - 5, 
+	                   10, 10);
+			povrsinaZaCrtanje.fillRect(this.vratiGornjuLevu().x + this.vratiDuzinu() - 5, this.vratiGornjuLevu().y + this.vratiVisinu() - 5, 
+	                   10, 10);
 		}
+		povrsinaZaCrtanje.setColor(this.boja);
 	}
 	abstract public int vratiDuzinu();
 	abstract public int vratiVisinu();
