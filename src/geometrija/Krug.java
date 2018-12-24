@@ -1,5 +1,6 @@
 package geometrija;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.io.Serializable;
@@ -39,7 +40,8 @@ public class Krug extends Figura
 
 	@Override
 	public void iscrtajSe(Graphics povrsinaZaCrtanje) 
-	{
+	{	
+		super.iscrtajSe(povrsinaZaCrtanje);
 		if (this.pun)
 		{
 			povrsinaZaCrtanje.fillOval(this.gornjaLeva.x, this.gornjaLeva.y, this.duzina, this.duzina);	

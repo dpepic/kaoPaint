@@ -42,6 +42,7 @@ public class PanelZaCrtanje extends JPanel
 					deselekt.selektovana = false;
 				}
 				fig.selektovana = true;
+				this.repaint();
 				break;
 			}
 		}
@@ -159,7 +160,7 @@ public class PanelZaCrtanje extends JPanel
 				//pitanje       //ako je tacno      //ako nije tacno
 				duzinaKruga =    (visina>duzina)      ?    visina           :          duzina;	
 			
-				Krug nekiKrug = new Krug(gornjaLeva, duzinaKruga, false);
+				Krug nekiKrug = new Krug(gornjaLeva, duzinaKruga, this.pun);
 				nekiKrug.boja = this.bojaZaCrtanje;
 				nekiKrug.debljina = this.debljinaLinije;
 				figure.add(nekiKrug);

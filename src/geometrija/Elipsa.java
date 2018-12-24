@@ -22,6 +22,8 @@ public class Elipsa extends Krug
 	@Override
 	public void iscrtajSe(Graphics povrsinaZaCrtanje) 
 	{
+		super.iscrtajSe(povrsinaZaCrtanje);
+		
 		if (this.pun)
 		{
 			povrsinaZaCrtanje.fillOval(this.gornjaLeva.x, this.gornjaLeva.y, this.duzina, this.visina);	
