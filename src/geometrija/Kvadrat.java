@@ -6,6 +6,7 @@ import java.awt.Point;
 public class Kvadrat extends Figura
 {
 	int duzina;
+	int visina;
 	boolean pun = false;
 
 	public int vratiDuzinu()
@@ -15,39 +16,41 @@ public class Kvadrat extends Figura
 	
 	public int vratiVisinu()
 	{
-		return this.duzina;
+		return this.visina;
 	}
 	
-	public Kvadrat (Point start, int duzina, boolean pun)
+	public Kvadrat (Point start, int duzina, int visina, boolean pun)
 	{
 		this.gornjaLeva = start;
 		this.duzina = duzina;
+		this.visina = visina;
 		this.pun = pun;
 	}
 
 	public double povrsina()
 	{
-		return Math.pow(this.duzina, 2);
+		return this.duzina * this.visina;
 	}
 
 	public double obim()
 	{
-		return this.duzina*4;
+		return this.duzina*2 + this.visina*2;
 	}
 
 	@Override
 	public void iscrtajSe(Graphics povrsinaZaCrtanje) 
 	{
+		super.iscrtajSe(povrsinaZaCrtanje);
 		if (this.pun)
 		{
 			povrsinaZaCrtanje.fillRect(this.gornjaLeva.x, 
 					this.gornjaLeva.y, 
-					this.duzina, this.duzina);
+					this.duzina, this.visina);
 		} else
 		{
 			povrsinaZaCrtanje.drawRect(this.gornjaLeva.x, 
 					this.gornjaLeva.y, 
-					this.duzina, this.duzina);
+					this.duzina, this.visina);
 		}
 	}
 }

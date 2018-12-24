@@ -17,7 +17,6 @@ public class PanelZaCrtanje extends JPanel
 	Duz linijaZaIscrtavanje;
 	Krug krugZaIscrtavanje;
 	Kvadrat kvadZaIscrtavanje;
-	Pravougaonik pravougZaIscrtavanje;
 	Figura selektovanaFig = null;
 	Point pocetnaTacka = new Point();
 	public boolean crtanjeUtoku = false;
@@ -26,6 +25,7 @@ public class PanelZaCrtanje extends JPanel
 	public int debljinaLinije = 1;
 	public boolean pun = false;
 	public boolean lock = true;
+	boolean postojiSelektovana = false;
 
 	public void selektuj(int x, int y)
 	{
@@ -36,15 +36,28 @@ public class PanelZaCrtanje extends JPanel
 			    (fig.vratiGornjuLevu().y <= y)  &&
 			    (y <= fig.vratiGornjuLevu().y + fig.vratiVisinu()))
 			{
+				if (fig.selektovana)
+				{
+					continue;
+				}
+				
 				for (Figura deselekt: this.figure)
 				{
 					deselekt.selektovana = false;
 				}
 				fig.selektovana = true;
+				this.postojiSelektovana = true;
 				this.repaint();
-				break;
-			}
+				return;
+			}	
 		}
+		
+		for (Figura fig: this.figure)
+		{
+			fig.selektovana = false;
+			this.postojiSelektovana = false;
+		}
+		this.repaint();
 	}
 	public void iscrtavanje(int x, int y)
 	{
@@ -117,10 +130,10 @@ public class PanelZaCrtanje extends JPanel
 					//pitanje       //ako je tacno      //ako nije tacno
 					duzinaKvad =    (visina>duzina)      ?    visina           :          duzina;
 
-					this.kvadZaIscrtavanje = new Kvadrat(levaGornja, duzinaKvad, this.pun);
+					this.kvadZaIscrtavanje = new Kvadrat(levaGornja, duzinaKvad, duzinaKvad, this.pun);
 				} else
 				{
-					pravougZaIscrtavanje = new Pravougaonik(levaGornja, duzina, visina, this.pun);
+					this.kvadZaIscrtavanje = new Kvadrat(levaGornja, duzina, visina, this.pun);
 				}
 				break;
 			}
@@ -230,14 +243,14 @@ public class PanelZaCrtanje extends JPanel
 				//pitanje           //ako je tacno           //ako nije tacno
 				duzinaKvad =    (visina>duzina)      ?    visina           :          duzina;
 
-				Kvadrat kvad = new Kvadrat(levaGornja, duzinaKvad, this.pun);
+				Kvadrat kvad = new Kvadrat(levaGornja, duzinaKvad, duzinaKvad, this.pun);
 
 				kvad.boja = this.bojaZaCrtanje;
 				kvad.debljina = this.debljinaLinije;
 				figure.add(kvad);
 			} else
 			{
-				Pravougaonik pravoUg = new Pravougaonik(levaGornja, duzina, visina, this.pun);
+				Kvadrat pravoUg = new Kvadrat(levaGornja, duzina, visina, this.pun);
 				pravoUg.boja = this.bojaZaCrtanje;
 				pravoUg.debljina = this.debljinaLinije;
 				figure.addElement(pravoUg);
@@ -266,9 +279,14 @@ public class PanelZaCrtanje extends JPanel
 		super.paintComponent(g);
 
 		Graphics2D g2d = (Graphics2D)g;
+		Figura selektovana = null;
 
 		for (Figura neka: figure)
 		{
+			if (neka.selektovana)
+			{
+				selektovana = neka;
+			}
 			g2d.setStroke(new BasicStroke(neka.debljina));
 			switch (neka.boja)
 			{
@@ -293,6 +311,12 @@ public class PanelZaCrtanje extends JPanel
 			}
 			neka.iscrtajSe(g);
 		}
+		
+		
+		if (!(selektovana == null))
+		{
+			selektovana.iscrtajSe(g);
+		}
 
 
 		if (crtanjeUtoku)
@@ -309,17 +333,9 @@ public class PanelZaCrtanje extends JPanel
 					g.drawOval(krugZaIscrtavanje.vratiGornjuLevu().x, krugZaIscrtavanje.vratiGornjuLevu().y, krugZaIscrtavanje.vratiDuzinu(), krugZaIscrtavanje.vratiVisinu());
 				break;
 			case "kvadrat":
-				if (this.lock)
-				{
-					g.drawRect(this.kvadZaIscrtavanje.vratiGornjuLevu().x,
+				g.drawRect(this.kvadZaIscrtavanje.vratiGornjuLevu().x,
 							this.kvadZaIscrtavanje.vratiGornjuLevu().y, 
-							this.kvadZaIscrtavanje.vratiDuzinu(), this.kvadZaIscrtavanje.vratiDuzinu());
-				} else
-				{
-					g.drawRect(this.pravougZaIscrtavanje.vratiGornjuLevu().x,
-							this.pravougZaIscrtavanje.vratiGornjuLevu().y, 
-							this.pravougZaIscrtavanje.vratiDuzinu(), this.pravougZaIscrtavanje.vratiVisinu());
-				}
+							this.kvadZaIscrtavanje.vratiDuzinu(), this.kvadZaIscrtavanje.vratiVisinu());
 				break;
 			}
 		}
