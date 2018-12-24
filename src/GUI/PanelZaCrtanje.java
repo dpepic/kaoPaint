@@ -37,7 +37,12 @@ public class PanelZaCrtanje extends JPanel
 			    (fig.vratiGornjuLevu().y <= y)  &&
 			    (y <= fig.vratiGornjuLevu().y + fig.vratiVisinu()))
 			{
-				System.out.println("KLIK!");
+				for (Figura deselekt: this.figure)
+				{
+					deselekt.selektovana = false;
+				}
+				fig.selektovana = true;
+				break;
 			}
 		}
 	}

@@ -9,6 +9,7 @@ abstract public class Figura implements Serializable
 	public String boja = "crna";
 	public int debljina = 1;
 	Point gornjaLeva;
+	public boolean selektovana = false;
 	
 	public Point vratiGornjuLevu()
 	{
