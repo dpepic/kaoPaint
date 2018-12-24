@@ -18,7 +18,6 @@ public class PanelZaCrtanje extends JPanel
 	Krug krugZaIscrtavanje;
 	Kvadrat kvadZaIscrtavanje;
 	Pravougaonik pravougZaIscrtavanje;
-	Elipsa elipsaZaIscrtavanje;
 	Figura selektovanaFig = null;
 	Point pocetnaTacka = new Point();
 	public boolean crtanjeUtoku = false;
@@ -81,14 +80,14 @@ public class PanelZaCrtanje extends JPanel
 					int duzina = Math.abs(pocetnaTacka.x - x);
 					int duzinaKruga = 0;
 
-					//pitanje       //ako je tacno      //ako nije tacno
+					                     //pitanje           //ako je tacno      //ako nije tacno
 					duzinaKruga =    (visina>duzina)      ?    visina           :          duzina;
-					krugZaIscrtavanje = new Krug(gornjaLeva, duzinaKruga, false);	
+					krugZaIscrtavanje = new Krug(gornjaLeva, duzinaKruga, duzinaKruga, false);	
 				} else
 				{
 					int visina = Math.abs(pocetnaTacka.y - y);
 					int duzina = Math.abs(pocetnaTacka.x - x);
-					elipsaZaIscrtavanje = new Elipsa(gornjaLeva, visina, duzina, false);
+					krugZaIscrtavanje = new Krug(gornjaLeva, duzina, visina, false);
 				}
 				break;
 			case "kvadrat":
@@ -160,7 +159,7 @@ public class PanelZaCrtanje extends JPanel
 				//pitanje       //ako je tacno      //ako nije tacno
 				duzinaKruga =    (visina>duzina)      ?    visina           :          duzina;	
 			
-				Krug nekiKrug = new Krug(gornjaLeva, duzinaKruga, this.pun);
+				Krug nekiKrug = new Krug(gornjaLeva, duzinaKruga, duzinaKruga, this.pun);
 				nekiKrug.boja = this.bojaZaCrtanje;
 				nekiKrug.debljina = this.debljinaLinije;
 				figure.add(nekiKrug);
@@ -169,7 +168,7 @@ public class PanelZaCrtanje extends JPanel
 				int visina = Math.abs(pocetnaTacka.y - y);
 				int duzina = Math.abs(pocetnaTacka.x - x);
 				
-				Elipsa nekaElipsa = new Elipsa(gornjaLeva, visina, duzina, this.pun);
+				Krug nekaElipsa = new Krug(gornjaLeva, duzina, visina, this.pun);
 				figure.add(nekaElipsa);
 			}
 			crtanjeUtoku = false;
@@ -307,13 +306,7 @@ public class PanelZaCrtanje extends JPanel
 						linijaZaIscrtavanje.vratiTackuB().x, linijaZaIscrtavanje.vratiTackuB().y);
 				break;
 			case "krug":
-				if (this.lock)
-				{
-					g.drawOval(krugZaIscrtavanje.vratiGornjuLevu().x, krugZaIscrtavanje.vratiGornjuLevu().y, krugZaIscrtavanje.vratiDuzinu(), krugZaIscrtavanje.vratiDuzinu());
-				} else
-				{
-					g.drawOval(elipsaZaIscrtavanje.vratiGornjuLevu().x, elipsaZaIscrtavanje.vratiGornjuLevu().y, elipsaZaIscrtavanje.vratiDuzinu(), elipsaZaIscrtavanje.vratiVisinu());
-				}
+					g.drawOval(krugZaIscrtavanje.vratiGornjuLevu().x, krugZaIscrtavanje.vratiGornjuLevu().y, krugZaIscrtavanje.vratiDuzinu(), krugZaIscrtavanje.vratiVisinu());
 				break;
 			case "kvadrat":
 				if (this.lock)

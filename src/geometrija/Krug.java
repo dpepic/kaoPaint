@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class Krug extends Figura  
 {
 	int duzina;
+	int visina;
 	boolean pun = false;
 	
 	
@@ -18,13 +19,14 @@ public class Krug extends Figura
 	
 	public int vratiVisinu()
 	{
-		return this.duzina;
+		return this.visina;
 	}
 
-	public Krug(Point c, int duzina, boolean pun)
+	public Krug(Point c, int duzina, int visina, boolean pun)
 	{
 		this.gornjaLeva = c;
 		this.duzina = duzina;
+		this.visina = visina;
 		this.pun = pun;
 	}
 	
@@ -42,13 +44,13 @@ public class Krug extends Figura
 	public void iscrtajSe(Graphics povrsinaZaCrtanje) 
 	{	
 		super.iscrtajSe(povrsinaZaCrtanje);
+		
 		if (this.pun)
 		{
-			povrsinaZaCrtanje.fillOval(this.gornjaLeva.x, this.gornjaLeva.y, this.duzina, this.duzina);	
+			povrsinaZaCrtanje.fillOval(this.gornjaLeva.x, this.gornjaLeva.y, this.duzina, this.visina);	
 		} else
 		{
-			povrsinaZaCrtanje.drawOval(this.gornjaLeva.x, this.gornjaLeva.y, this.duzina, this.duzina);	
+			povrsinaZaCrtanje.drawOval(this.gornjaLeva.x, this.gornjaLeva.y, this.duzina, this.visina);	
 		}
-		
 	}
 }
