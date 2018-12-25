@@ -46,6 +46,7 @@ public class PanelZaCrtanje extends JPanel
 					deselekt.selektovana = false;
 				}
 				fig.selektovana = true;
+				this.selektovanaFig = fig;
 				this.postojiSelektovana = true;
 				this.repaint();
 				return;
@@ -59,6 +60,14 @@ public class PanelZaCrtanje extends JPanel
 		}
 		this.repaint();
 	}
+	
+	public void deselektuj()
+	{
+		this.postojiSelektovana = false;
+		this.selektovanaFig.selektovana = false;
+		 
+	}
+	
 	public void iscrtavanje(int x, int y)
 	{
 		if (crtanjeUtoku)
@@ -182,6 +191,8 @@ public class PanelZaCrtanje extends JPanel
 				int duzina = Math.abs(pocetnaTacka.x - x);
 				
 				Krug nekaElipsa = new Krug(gornjaLeva, duzina, visina, this.pun);
+				nekaElipsa.boja = this.bojaZaCrtanje;
+				nekaElipsa.debljina = this.debljinaLinije;
 				figure.add(nekaElipsa);
 			}
 			crtanjeUtoku = false;

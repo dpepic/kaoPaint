@@ -191,7 +191,7 @@ public class MainWindow {
 		pnlZaAlate.add(chckbxKvadrat, gbc_chckbxKvadrat);
 		
 		JComboBox cmbBoje = new JComboBox();
-		cmbBoje.setModel(new DefaultComboBoxModel(new String[] {"Crna", "Zelena", "Crvena", "Siva", "Zuta", "Plava"}));
+		cmbBoje.setModel(new DefaultComboBoxModel(new String[] {"Crna", "Zelena", "Crvena", "Siva", "Zuta", "Plava", "Pink"}));
 		cmbBoje.setSelectedIndex(0);
 		c_3 = new GridBagConstraints();
 		c_3.insets = new Insets(0, 0, 5, 5);
@@ -234,6 +234,10 @@ public class MainWindow {
 				case "Plava":
 					pnlZaCrtanje.bojaZaCrtanje = Color.BLUE;
 					break;
+				case "Pink":
+					pnlZaCrtanje.bojaZaCrtanje = Color.PINK;
+					break;
+				
 				}
 				pnlZaCrtanje.debljinaLinije = Integer.parseInt(cmbDebljina.getSelectedItem().toString());
 				switch (grupaZaCrtanje.getSelection().getActionCommand())
@@ -330,7 +334,21 @@ public class MainWindow {
 				pnlZaCrtanje.repaint();
 			}
 		});
-		menuBar.add(mntmOcistiCrtez);
+		
+		JMenu mnEdit = new JMenu("Edit");
+		menuBar.add(mnEdit);
+		mnEdit.add(mntmOcistiCrtez);
+		
+		JMenuItem mntmObrisiFiguru = new JMenuItem("Obrisi figuru");
+		mntmObrisiFiguru.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				pnlZaCrtanje.deselektuj();
+			}
+		});
+		mnEdit.add(mntmObrisiFiguru);
+		
 		
 		pnlZaCrtanje.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
