@@ -13,6 +13,7 @@ abstract public class Figura implements Serializable
 	public int debljina = 1;
 	Point gornjaLeva;
 	public boolean selektovana = false;
+	public boolean pun = false;
 	
 	public Point vratiGornjuLevu()
 	{

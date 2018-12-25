@@ -26,21 +26,22 @@ public class PanelZaCrtanje extends JPanel
 	public boolean pun = false;
 	public boolean lock = true;
 	boolean postojiSelektovana = false;
+	public boolean stanjePunjenja = false;
 
 	public void selektuj(int x, int y)
 	{
 		for (Figura fig: this.figure)
 		{
 			if ((fig.vratiGornjuLevu().x <= x) && 
-			    (x <= fig.vratiGornjuLevu().x + fig.vratiDuzinu()) &&
-			    (fig.vratiGornjuLevu().y <= y)  &&
-			    (y <= fig.vratiGornjuLevu().y + fig.vratiVisinu()))
+					(x <= fig.vratiGornjuLevu().x + fig.vratiDuzinu()) &&
+					(fig.vratiGornjuLevu().y <= y)  &&
+					(y <= fig.vratiGornjuLevu().y + fig.vratiVisinu()))
 			{
 				if (fig.selektovana)
 				{
 					continue;
 				}
-				
+
 				for (Figura deselekt: this.figure)
 				{
 					deselekt.selektovana = false;
@@ -48,11 +49,12 @@ public class PanelZaCrtanje extends JPanel
 				fig.selektovana = true;
 				this.selektovanaFig = fig;
 				this.postojiSelektovana = true;
+				this.stanjePunjenja = fig.pun;
 				this.repaint();
 				return;
 			}	
 		}
-		
+
 		for (Figura fig: this.figure)
 		{
 			fig.selektovana = false;
@@ -60,14 +62,20 @@ public class PanelZaCrtanje extends JPanel
 		}
 		this.repaint();
 	}
-	
+
 	public void deselektuj()
 	{
 		this.postojiSelektovana = false;
 		this.selektovanaFig.selektovana = false;
-		 
+		this.pun = false;
 	}
-	
+
+	public void podesiStatus()
+	{
+		this.selektovanaFig.pun = this.pun;
+		this.repaint();
+	}
+
 	public void iscrtavanje(int x, int y)
 	{
 		if (crtanjeUtoku)
@@ -102,7 +110,7 @@ public class PanelZaCrtanje extends JPanel
 					int duzina = Math.abs(pocetnaTacka.x - x);
 					int duzinaKruga = 0;
 
-					                     //pitanje           //ako je tacno      //ako nije tacno
+					//pitanje           //ako je tacno      //ako nije tacno
 					duzinaKruga =    (visina>duzina)      ?    visina           :          duzina;
 					krugZaIscrtavanje = new Krug(gornjaLeva, duzinaKruga, duzinaKruga, false);	
 				} else
@@ -180,7 +188,7 @@ public class PanelZaCrtanje extends JPanel
 
 				//pitanje       //ako je tacno      //ako nije tacno
 				duzinaKruga =    (visina>duzina)      ?    visina           :          duzina;	
-			
+
 				Krug nekiKrug = new Krug(gornjaLeva, duzinaKruga, duzinaKruga, this.pun);
 				nekiKrug.boja = this.bojaZaCrtanje;
 				nekiKrug.debljina = this.debljinaLinije;
@@ -189,7 +197,7 @@ public class PanelZaCrtanje extends JPanel
 			{
 				int visina = Math.abs(pocetnaTacka.y - y);
 				int duzina = Math.abs(pocetnaTacka.x - x);
-				
+
 				Krug nekaElipsa = new Krug(gornjaLeva, duzina, visina, this.pun);
 				nekaElipsa.boja = this.bojaZaCrtanje;
 				nekaElipsa.debljina = this.debljinaLinije;
@@ -299,11 +307,11 @@ public class PanelZaCrtanje extends JPanel
 				selektovana = neka;
 			}
 			g2d.setStroke(new BasicStroke(neka.debljina));
-			
+
 			neka.iscrtajSe(g);
 		}
-		
-		
+
+
 		if (!(selektovana == null))
 		{
 			selektovana.iscrtajSe(g);
@@ -321,12 +329,12 @@ public class PanelZaCrtanje extends JPanel
 						linijaZaIscrtavanje.vratiTackuB().x, linijaZaIscrtavanje.vratiTackuB().y);
 				break;
 			case "krug":
-					g.drawOval(krugZaIscrtavanje.vratiGornjuLevu().x, krugZaIscrtavanje.vratiGornjuLevu().y, krugZaIscrtavanje.vratiDuzinu(), krugZaIscrtavanje.vratiVisinu());
+				g.drawOval(krugZaIscrtavanje.vratiGornjuLevu().x, krugZaIscrtavanje.vratiGornjuLevu().y, krugZaIscrtavanje.vratiDuzinu(), krugZaIscrtavanje.vratiVisinu());
 				break;
 			case "kvadrat":
 				g.drawRect(this.kvadZaIscrtavanje.vratiGornjuLevu().x,
-							this.kvadZaIscrtavanje.vratiGornjuLevu().y, 
-							this.kvadZaIscrtavanje.vratiDuzinu(), this.kvadZaIscrtavanje.vratiVisinu());
+						this.kvadZaIscrtavanje.vratiGornjuLevu().y, 
+						this.kvadZaIscrtavanje.vratiDuzinu(), this.kvadZaIscrtavanje.vratiVisinu());
 				break;
 			}
 		}

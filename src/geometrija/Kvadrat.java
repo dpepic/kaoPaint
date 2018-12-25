@@ -7,7 +7,6 @@ public class Kvadrat extends Figura
 {
 	int duzina;
 	int visina;
-	boolean pun = false;
 
 	public int vratiDuzinu()
 	{

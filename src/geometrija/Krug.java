@@ -9,7 +9,7 @@ public class Krug extends Figura
 {
 	int duzina;
 	int visina;
-	boolean pun = false;
+	
 	
 	
 	public int vratiDuzinu()
